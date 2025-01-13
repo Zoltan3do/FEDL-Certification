@@ -37,21 +37,21 @@ const WrapperElement = ({ colors, handleNewQuote }) => {
                 </p>
             </div>
             <div className='d-flex justify-content-between'>
-                <button
+                <a
                     id="tweet-quote"
                     style={{
                         backgroundColor: colors.a,
                         transition: 'background-color 0.2s ease',
                     }}
                     className='btn py-2'
-                    onClick={tweetQuote}
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(data.quote)}%20${encodeURIComponent(data.author)}`}
                 >
                     <i className="fs-4 fa-solid fa-x text-light" style={{
                         backgroundColor: colors.a,
                         transition: 'background-color 0.2s ease',
                     }}>
                     </i>
-                </button>
+                </a>
                 <button
                     id="new-quote"
                     style={{
