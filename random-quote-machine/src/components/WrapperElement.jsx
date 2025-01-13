@@ -10,15 +10,6 @@ const WrapperElement = ({ colors, handleNewQuote }) => {
         dispatch(fetchAction());
     }, [dispatch]);
 
-    const tweetQuote = () => {
-        const quoteText = `"${data.quote}"`;
-        const authorName = `- ${data.author}`;
-        const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(quoteText)}%20${encodeURIComponent(authorName)}`;
-        window.open(tweetUrl, '_blank');
-    };
-
-
-
     return (
         <div
             id="quote-box"
