@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+body, #quote-box, button {
+  transition: all 0.2s ease;
+}
