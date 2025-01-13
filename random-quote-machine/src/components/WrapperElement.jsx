@@ -4,19 +4,20 @@ import { fetchAction } from '../redux/actions';
 
 const WrapperElement = ({ colors, handleNewQuote }) => {
     const dispatch = useDispatch();
-    const data = useSelector((state) => state.quote); 
+    const data = useSelector((state) => state.quote);
 
     useEffect(() => {
         dispatch(fetchAction());
-    }, [dispatch]);  
+    }, [dispatch]);
 
     const tweetQuote = () => {
         const quoteText = `"${data.quote}"`;
         const authorName = `- ${data.author}`;
         const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(quoteText)}%20${encodeURIComponent(authorName)}`;
-
         window.open(tweetUrl, '_blank');
     };
+
+
 
     return (
         <div
@@ -45,7 +46,11 @@ const WrapperElement = ({ colors, handleNewQuote }) => {
                     className='btn py-2'
                     onClick={tweetQuote}
                 >
-                    <i className="fs-4 fa-solid fa-x text-light"></i>
+                    <i className="fs-4 fa-solid fa-x text-light" style={{
+                        backgroundColor: colors.a,
+                        transition: 'background-color 0.2s ease',
+                    }}>
+                    </i>
                 </button>
                 <button
                     id="new-quote"
@@ -59,6 +64,8 @@ const WrapperElement = ({ colors, handleNewQuote }) => {
                     }}
                     type='button'
                     className='btn text-light'
+                    onMouseOver={(e) => { e.target.style.backgroundColor = colors.b }}
+                    onMouseOut={(e) => { e.target.style.backgroundColor = colors.a }}
                 >
                     New quote
                 </button>
