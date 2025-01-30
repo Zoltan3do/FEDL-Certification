@@ -8,12 +8,15 @@ function Preview() {
 
   marked.setOptions({
     breaks: true,
+    sanitize: false,
   });
 
-  useEffect(() => {}, [preview]);
-
   return (
-    <div id="preview" dangerouslySetInnerHTML={{ __html: parsedPreview }} className="border border-5 rounded-5 p-2"/>
+    <div
+      id="preview"
+      dangerouslySetInnerHTML={{ __html: parsedPreview }}
+      className="border border-5 rounded-5 p-2"
+    />
   );
 }
 
