@@ -15,8 +15,7 @@ function CustomDisplay() {
 
   const handleVolume = (e) => {
     const newVolume = parseFloat(e.target.value);
-    dispatch(setVolumeAction(newVolume));
-    console.log(volume);
+    if (active) dispatch(setVolumeAction(newVolume));
   };
 
   const handleActive = (e) => {
@@ -26,6 +25,7 @@ function CustomDisplay() {
       bt.classList.add("btn-danger");
       bt.textContent = "OFF";
       dispatch(setActiveAction(false));
+      dispatch(setVolumeAction(0.0));
     } else {
       bt.classList.remove("btn-danger");
       bt.classList.add("btn-success");
@@ -49,9 +49,7 @@ function CustomDisplay() {
     }
   };
 
-  useEffect(() => {
-    console.log("Descrizione aggiornata:", descr);
-  }, [descr]);
+  useEffect(() => {}, [descr]);
 
   return (
     <div className="d-flex flex-column gap-5 justify-content-center align-items-center">
