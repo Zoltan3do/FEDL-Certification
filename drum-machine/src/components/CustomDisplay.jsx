@@ -67,7 +67,7 @@ function CustomDisplay() {
 
       <div>
         <div className="bg-secondary p-2 d-flex align-items-center justify-content-center rounded">
-          <p id="des" className="m-0 text-center text-black">
+          <p id="display" className="m-0 text-center text-black">
             {descr}
           </p>
         </div>

@@ -35,17 +35,29 @@ function CustomGrid() {
 
   const handleSelection = (id) => {
     const element = document.getElementById(id);
-    if (!element) return;
+    if (!element) {
+      console.error(`Elemento ${id} non trovato`);
+      return;
+    }
+
     const audioElement = element.querySelector(".clip");
+
     if (audioElement) {
       audioElement.currentTime = 0;
-      console.log(volume);
       audioElement.volume = volume;
-      audioElement.play();
+      audioElement
+        .play()
+        .then(() => console.log(`Riproduzione di ${id} avviata con successo`))
+        .catch((error) =>
+          console.error(`Errore nella riproduzione di ${id}:`, error)
+        );
+    } else {
+      console.error(`Elemento audio non trovato in ${id}`);
     }
-    const elementId = audioElement ? audioElement.id : null;
-    dispatch(changeAction({ elementId, description: id }));
+
+    dispatch(changeAction({ elementId: id, description: id }));
     setActivePad(id);
+
     setTimeout(() => {
       setActivePad(null);
     }, 2000);
@@ -66,7 +78,6 @@ function CustomGrid() {
 
   return (
     <div
-      id="display"
       className="container justify-content-center align-items-center d-flex"
     >
       <div className="row row-cols-4 gap-2">
