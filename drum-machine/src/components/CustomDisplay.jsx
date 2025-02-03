@@ -31,6 +31,7 @@ function CustomDisplay() {
       bt.classList.add("btn-success");
       bt.textContent = "ON";
       dispatch(setActiveAction(true));
+      dispatch(setVolumeAction(0.5));
     }
   };
 
