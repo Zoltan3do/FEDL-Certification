@@ -26,27 +26,29 @@ const keyMapBank2 = {
   C: "closed-hh",
 };
 
-// mappare anche le due varianti di gruppi src
-
 function CustomGrid() {
   const dispatch = useDispatch();
-  const idSelected = useSelector((state) => state.display.elementId);
-  const active = useSelector((state) => state.display.active);
   const banking = useSelector((state) => state.display.banking);
   const [activePad, setActivePad] = useState(null);
   const keyMap = banking ? keyMapBank1 : keyMapBank2;
+  const volume = useSelector((state) => state.display.volume);
 
   const handleSelection = (id) => {
     const element = document.getElementById(id);
     if (!element) return;
-
     const audioElement = element.querySelector(".clip");
+    if (audioElement) {
+      audioElement.currentTime = 0;
+      console.log(volume);
+      audioElement.volume = volume;
+      audioElement.play();
+    }
     const elementId = audioElement ? audioElement.id : null;
     dispatch(changeAction({ elementId, description: id }));
     setActivePad(id);
     setTimeout(() => {
       setActivePad(null);
-    }, 300);
+    }, 2000);
   };
 
   useEffect(() => {
@@ -60,7 +62,7 @@ function CustomGrid() {
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [keyMap]);
+  }, [keyMap, volume]);
 
   return (
     <div
@@ -76,10 +78,16 @@ function CustomGrid() {
                 activePad === id ? "bg-warning" : "bg-secondary"
               }`}
               id={id}
-              onClick={() => handleSelection(id)}
+              onClick={() => {
+                handleSelection(id);
+              }}
             >
               {key}
-              <audio className="clip" id={key}></audio>
+              <audio
+                className="clip"
+                id={key}
+                src={`./tracks/${id}.wav`}
+              ></audio>
             </div>
           ))}
         </>

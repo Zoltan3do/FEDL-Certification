@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import CustomDisplay from "./components/CustomDisplay";
 import CustomGrid from "./components/CustomGrid";
