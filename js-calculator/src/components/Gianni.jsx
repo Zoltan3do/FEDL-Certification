@@ -8,12 +8,11 @@ function Gianni() {
     <>
       <div className="container my-5">
         <div className="row border border-dark border-5">
-          <div
-            className="col-12 text-end bg-black text-light border"
-            id="display"
-          ></div>
-          <div className="col-12 text-end bg-black text-light border fs-1 fst-italic">
-            {total}
+          <div id="display" className="text-end bg-black border">
+            <div className="col-12 text-warning "></div>
+            <div className="col-12 text-light fs-1 fst-italic">
+              {total}
+            </div>
           </div>
           <div
             className="col-6 text-center bg-danger text-light fw-bold border ni-over"
