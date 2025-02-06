@@ -66,3 +66,19 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.cursor-pointer:hover {
+  cursor: pointer;
+}
+
+.number-over:hover {
+  color: black !important;
+  background-color: white !important;
+  cursor: pointer;
+}
+
+.ni-over:hover{
+  color: black !important;
+  cursor: pointer;
+  border-color: black !important;
+}

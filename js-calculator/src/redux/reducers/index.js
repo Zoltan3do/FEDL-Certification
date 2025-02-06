@@ -3,6 +3,7 @@ import { EQUALS } from "../actions";
 const initialState = {
   currentOperation: "",
   total: 0,
+  current_number: null,
 };
 
 const calculatorReducer = (state = initialState, action) => {
