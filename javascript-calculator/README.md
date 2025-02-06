@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+# Costruisci una Calcolatrice JavaScript
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Note
+React 18 ha incompatibilità note con i test per questo progetto (vedi issue).
 
-## Available Scripts
+## Obiettivo
+Costruisci un'app che sia funzionalmente simile a questa: [JavaScript Calculator](https://javascript-calculator.freecodecamp.rocks/).
 
-In the project directory, you can run:
+Soddisfa le user story qui sotto e supera tutti i test. Utilizza le librerie o le API di cui hai bisogno. Usa il tuo stile personale.
 
-### `npm start`
+## Tecnologie Consigliate
+Puoi usare una combinazione di:
+- HTML
+- JavaScript
+- CSS
+- Bootstrap
+- SASS
+- React
+- Redux
+- jQuery
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+L'uso di un framework frontend (come React) è consigliato, poiché questa sezione si concentra sull'apprendimento dei framework frontend. Tecnologie non elencate sopra sono a tuo rischio e pericolo.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## User Stories
 
-### `npm test`
+1. La mia calcolatrice deve contenere un elemento cliccabile con un segno di uguale (=) e l'id `equals`.
+2. Deve contenere 10 elementi cliccabili con i numeri da 0 a 9, con i seguenti ID:
+   - `zero`, `one`, `two`, `three`, `four`, `five`, `six`, `seven`, `eight`, `nine`
+3. Deve contenere 4 elementi cliccabili per le operazioni matematiche principali con i seguenti ID:
+   - `add`, `subtract`, `multiply`, `divide`
+4. Deve contenere un elemento cliccabile per il punto decimale con l'id `decimal`.
+5. Deve contenere un elemento cliccabile con l'id `clear`.
+6. Deve contenere un elemento per visualizzare i valori con l'id `display`.
+7. Premendo il pulsante `clear`, l'input e l'output devono essere cancellati e la calcolatrice deve tornare allo stato iniziale, mostrando `0` in `display`.
+8. Durante l'inserimento dei numeri, questi devono essere visualizzati in `display`.
+9. Devono essere possibili operazioni concatenate di qualsiasi lunghezza. Premendo `=`, deve essere mostrato il risultato corretto in `display`.
+10. Non deve essere possibile inserire numeri che iniziano con più di uno zero.
+11. Cliccando su `decimal`, deve essere aggiunto un `.` al numero corrente, ma non devono essere accettati due `.` nello stesso numero.
+12. Deve essere possibile eseguire operazioni (+, -, *, /) su numeri con punti decimali.
+13. Se vengono inseriti due o più operatori consecutivi, l'operazione eseguita deve essere l'ultimo operatore inserito (escludendo il segno meno `-`).
+14. Premendo un operatore immediatamente dopo `=` deve iniziare un nuovo calcolo basato sul risultato precedente.
+15. La calcolatrice deve gestire la precisione decimale con almeno 4 cifre decimali.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Logica della Calcolatrice
+Ci sono due approcci principali alla logica della calcolatrice:
+1. **Immediate Execution Logic**: esegue le operazioni non rispettando la precedenza degli operatori.
+2. **Formula Logic**: segue la precedenza degli operatori, come una calcolatrice scientifica.
 
-### `npm run build`
+Esempio di input: `3 + 5 * 6 - 2 / 4 =`
+- **Immediate Execution Logic**: 11.5
+- **Formula Logic**: 32.5
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Entrambi gli approcci sono accettabili, purché i calcoli siano verificabili con una calcolatrice reale.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Setup del Progetto
+Puoi creare il tuo progetto usando questo template su CodePen e cliccando su "Save" per creare la tua versione.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Se usi un altro ambiente, aggiungi questo script nel `<body>` del tuo `index.html`:
+```html
+<script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+```
 
-### `npm run eject`
+Una volta completato il progetto e superati tutti i test, invia l'URL del tuo progetto funzionante!
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Buon coding! 🚀
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
