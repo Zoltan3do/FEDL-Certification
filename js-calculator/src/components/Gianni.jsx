@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeAction } from "../redux/actions";
+import { changeAction, clearAction, numberAction } from "../redux/actions";
 
 function Gianni() {
   const current_number = useSelector(
@@ -13,133 +13,183 @@ function Gianni() {
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
-    event.preventDefault();
     dispatch(changeAction(event.target.textContent));
+  };
+
+  const handleChangeCurrent = (event) => {
+    dispatch(numberAction(event.target.textContent));
   };
 
   useEffect(() => {
     console.log("current_expression:", current_expression);
   }, [current_expression, current_number]);
+
   return (
     <>
       <div className="container my-5">
         <div className="row border border-dark border-5">
-          <div id="display" className="text-end bg-black border">
+          <div  className="text-end bg-black border">
             <div className="col-12 text-warning no-copy fs-2 fst-italic">
               {current_expression}
             </div>
-            <div className="col-12 text-light fs-1 fst-italic no-copy">
+            <div className="col-12 text-light fs-1 fst-italic no-copy" id="display">
               {current_number}
             </div>
           </div>
           <div
             className="col-6 text-center bg-danger text-light fw-bold border ni-over no-copy"
             id="clear"
+            onClick={() => dispatch(clearAction())}
           >
             AC
           </div>
           <div
             className="col-3 text-center bg-secondary text-light fw-bold border ni-over no-copy"
             id="divide"
-            onClick={handleChange}
+            onClick={(event) => {
+              handleChange(event);
+              handleChangeCurrent(event);
+            }}
           >
             /
           </div>
           <div
             className="col-3 text-center text-light fw-bold bg-secondary border ni-over no-copy"
             id="multiply"
-            onClick={handleChange}
+            onClick={(event) => {
+              handleChange(event);
+              handleChangeCurrent(event);
+            }}
           >
             X
           </div>
           <div
             className="col-3 text-center text-light fw-bold bg-dark border number-over no-copy"
             id="seven"
-            onClick={handleChange}
+            onClick={(event) => {
+              handleChange(event);
+              handleChangeCurrent(event);
+            }}
           >
             7
           </div>
           <div
             className="col-3 text-center text-light fw-bold bg-dark border number-over no-copy"
             id="eight"
-            onClick={handleChange}
+            onClick={(event) => {
+              handleChange(event);
+              handleChangeCurrent(event);
+            }}
           >
             8
           </div>
           <div
             className="col-3 text-center text-light fw-bold bg-dark border number-over no-copy"
             id="nine"
-            onClick={handleChange}
+            onClick={(event) => {
+              handleChange(event);
+              handleChangeCurrent(event);
+            }}
           >
             9
           </div>
           <div
             className="col-3 text-center text-light fw-bold bg-secondary border ni-over no-copy"
             id="subtract"
-            onClick={handleChange}
+            onClick={(event) => {
+              handleChange(event);
+              handleChangeCurrent(event);
+            }}
           >
             -
           </div>
           <div
             className="col-3 text-center text-light fw-bold bg-dark border number-over no-copy"
             id="four"
-            onClick={handleChange}
+            onClick={(event) => {
+              handleChange(event);
+              handleChangeCurrent(event);
+            }}
           >
             4
           </div>
           <div
             className="col-3 text-center text-light fw-bold bg-dark border number-over no-copy"
             id="five"
-            onClick={handleChange}
+            onClick={(event) => {
+              handleChange(event);
+              handleChangeCurrent(event);
+            }}
           >
             5
           </div>
           <div
             className="col-3 text-center text-light fw-bold bg-dark border number-over no-copy"
             id="six"
-            onClick={handleChange}
+            onClick={(event) => {
+              handleChange(event);
+              handleChangeCurrent(event);
+            }}
           >
             6
           </div>
           <div
             className="col-3 text-center text-light fw-bold bg-secondary border ni-over no-copy"
             id="add"
-            onClick={handleChange}
+            onClick={(event) => {
+              handleChange(event);
+              handleChangeCurrent(event);
+            }}
           >
             +
           </div>
           <div
             className="col-3 text-center text-light fw-bold bg-dark border number-over no-copy"
             id="one"
-            onClick={handleChange}
+            onClick={(event) => {
+              handleChange(event);
+              handleChangeCurrent(event);
+            }}
           >
             1
           </div>
           <div
             className="col-3 text-center text-light fw-bold bg-dark border number-over no-copy"
             id="two"
-            onClick={handleChange}
+            onClick={(event) => {
+              handleChange(event);
+              handleChangeCurrent(event);
+            }}
           >
             2
           </div>
           <div
             className="col-3 text-center text-light fw-bold bg-dark border number-over no-copy"
             id="three"
-            onClick={handleChange}
+            onClick={(event) => {
+              handleChange(event);
+              handleChangeCurrent(event);
+            }}
           >
             3
           </div>
           <div
             className="col-3 text-center text-light fw-bold bg-secondary border ni-over no-copy"
             id="decimal"
-            onClick={handleChange}
+            onClick={(event) => {
+              handleChange(event);
+              handleChangeCurrent(event);
+            }}
           >
             .
           </div>
           <div
             className="col-6 text-center text-light fw-bold bg-dark border number-over no-copy"
             id="zero"
-            onClick={handleChange}
+            onClick={(event) => {
+              handleChange(event);
+              handleChangeCurrent(event);
+            }}
           >
             0
           </div>
