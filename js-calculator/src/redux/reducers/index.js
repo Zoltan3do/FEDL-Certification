@@ -13,63 +13,89 @@ const calculatorReducer = (state = initialState, action) => {
   const lastOperatorIndex = Math.max(
     state.currentExpression.lastIndexOf("+"),
     state.currentExpression.lastIndexOf("-"),
-    state.currentExpression.lastIndexOf("*"),
+    state.currentExpression.lastIndexOf("x"),
     state.currentExpression.lastIndexOf("/")
   );
 
   const lastDotIndex2 = state.current_number.indexOf(".");
+
   function calculate(expression) {
-    expression = expression.replace(/\s+/g, "");
-    let result = parseFloat(expression.charAt(0));
+    try {
+      // Rimuovi eventuali spazi e sostituisci 'x' con '*'
+      expression = expression.trim().replace(/x/g, "*");
 
-    let i = 1;
-    while (i < expression.length) {
-      const operator = expression.charAt(i);
-      let j = i + 1;
+      // Implementa la precedenza degli operatori
+      let tokens = [];
+      let currentNumber = "";
 
-      while (
-        (j < expression.length && !isNaN(expression.charAt(j))) ||
-        expression.charAt(j) === "."
-      ) {
-        j++;
+      // Tokenizzazione dell'espressione
+      for (let i = 0; i < expression.length; i++) {
+        const char = expression[i];
+        if ("0123456789.".includes(char)) {
+          currentNumber += char;
+        } else if ("+-*/".includes(char)) {
+          if (currentNumber !== "") {
+            tokens.push(parseFloat(currentNumber));
+            currentNumber = "";
+          }
+          tokens.push(char);
+        }
+      }
+      if (currentNumber !== "") {
+        tokens.push(parseFloat(currentNumber));
       }
 
-      const number = parseFloat(expression.substring(i + 1, j));
+      // Prima passa: moltiplicazione e divisione
+      for (let i = 1; i < tokens.length - 1; i += 2) {
+        if (tokens[i] === "*" || tokens[i] === "/") {
+          const left = tokens[i - 1];
+          const right = tokens[i + 1];
+          let result;
 
-      switch (operator) {
-        case "+":
-          result += number;
-          break;
-        case "-":
-          result -= number;
-          break;
-        case "x":
-          result *= number;
-          break;
-        case "/":
-          result /= number;
-          break;
-        default:
-          break;
+          if (tokens[i] === "*") {
+            result = left * right;
+          } else if (tokens[i] === "/") {
+            if (right === 0) throw new Error("Division by zero");
+            result = left / right;
+          }
+
+          tokens.splice(i - 1, 3, result);
+          i -= 2;
+        }
       }
 
-      i = j;
+      // Seconda passa: addizione e sottrazione
+      let result = tokens[0];
+      for (let i = 1; i < tokens.length; i += 2) {
+        const operator = tokens[i];
+        const operand = tokens[i + 1];
+
+        if (operator === "+") {
+          result += operand;
+        } else if (operator === "-") {
+          result -= operand;
+        }
+      }
+
+      // Arrotonda a 10 decimali per evitare imprecisioni dei numeri in virgola mobile
+      return Math.round(result * 1e10) / 1e10;
+    } catch (error) {
+      console.error("Errore nel calcolo:", error);
+      return NaN;
     }
-
-    return result;
   }
 
   switch (action.type) {
     case CHANGE_EXPRESSION:
-      if (action.payload == "." && state.currentExpression.length == 0) {
+      if (action.payload === "." && state.currentExpression.length === 0) {
         return {
           ...state,
           currentExpression: "0.",
         };
       } else if (
-        (state.currentExpression.length == 1 &&
-          action.payload == "0" &&
-          state.currentExpression.charAt(state.currentExpression.length - 1) ==
+        (state.currentExpression.length === 1 &&
+          action.payload === "0" &&
+          state.currentExpression.charAt(state.currentExpression.length - 1) ===
             "0") ||
         (isNaN(
           state.currentExpression.charAt(state.currentExpression.length - 1)
@@ -81,9 +107,9 @@ const calculatorReducer = (state = initialState, action) => {
         (isNaN(
           state.currentExpression.charAt(state.currentExpression.length - 2)
         ) &&
-          state.currentExpression.charAt(state.currentExpression.length - 1) ==
+          state.currentExpression.charAt(state.currentExpression.length - 1) ===
             "0" &&
-          action.payload == "0") ||
+          action.payload === "0") ||
         (action.payload === "." && lastDotIndex > lastOperatorIndex) ||
         (isNaN(
           state.currentExpression.charAt(state.currentExpression.length - 1)
@@ -99,41 +125,41 @@ const calculatorReducer = (state = initialState, action) => {
       }
 
     case CHANGE_CURRENT_NUMBER:
-      if (state.current_number.charAt(0) == ".") {
+      if (state.current_number.charAt(0) === ".") {
         return {
           ...state,
-          current_number: action?.payload,
+          current_number: action.payload,
         };
       } else if (
-        state.current_number.length == 1 &&
-        state.current_number.charAt(0) == "0" &&
+        state.current_number.length === 1 &&
+        state.current_number.charAt(0) === "0" &&
         !isNaN(action.payload)
       ) {
         return {
           ...state,
-          current_number: action?.payload,
+          current_number: action.payload,
         };
       } else if (
         ((!isNaN(
           state.current_number.charAt(state.current_number.length - 1)
         ) ||
-          state.current_number.charAt(state.current_number.length - 1) ==
+          state.current_number.charAt(state.current_number.length - 1) ===
             ".") &&
           !isNaN(action.payload)) ||
-        (action.payload == "." &&
+        (action.payload === "." &&
           !isNaN(
             state.current_number.charAt(state.current_number.length - 1)
           ) &&
-          lastDotIndex2 == -1)
+          lastDotIndex2 === -1)
       ) {
         return {
           ...state,
-          current_number: state.current_number + action?.payload,
+          current_number: state.current_number + action.payload,
         };
       } else {
         return {
           ...state,
-          current_number: action?.payload,
+          current_number: action.payload,
         };
       }
 
@@ -144,9 +170,15 @@ const calculatorReducer = (state = initialState, action) => {
         current_number: "0",
       };
 
-    // 73 + 5 * 6 - 2 / 4
     case EQUALS:
       const result = calculate(state.currentExpression);
+      if (isNaN(result)) {
+        return {
+          ...state,
+          current_number: "Error",
+          currentExpression: "",
+        };
+      }
       return {
         ...state,
         currentExpression: state.currentExpression + "=" + result,
