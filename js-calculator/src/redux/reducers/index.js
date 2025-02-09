@@ -18,12 +18,46 @@ const calculatorReducer = (state = initialState, action) => {
   );
 
   const lastDotIndex2 = state.current_number.indexOf(".");
-  const lastOperatorIndex2 = Math.max(
-    state.current_number.lastIndexOf("+"),
-    state.current_number.lastIndexOf("-"),
-    state.current_number.lastIndexOf("*"),
-    state.current_number.lastIndexOf("/")
-  );
+  function calculate(expression) {
+    expression = expression.replace(/\s+/g, "");
+    let result = parseFloat(expression.charAt(0));
+
+    let i = 1;
+    while (i < expression.length) {
+      const operator = expression.charAt(i);
+      let j = i + 1;
+
+      while (
+        (j < expression.length && !isNaN(expression.charAt(j))) ||
+        expression.charAt(j) === "."
+      ) {
+        j++;
+      }
+
+      const number = parseFloat(expression.substring(i + 1, j));
+
+      switch (operator) {
+        case "+":
+          result += number;
+          break;
+        case "-":
+          result -= number;
+          break;
+        case "x":
+          result *= number;
+          break;
+        case "/":
+          result /= number;
+          break;
+        default:
+          break;
+      }
+
+      i = j;
+    }
+
+    return result;
+  }
 
   switch (action.type) {
     case CHANGE_EXPRESSION:
@@ -105,14 +139,18 @@ const calculatorReducer = (state = initialState, action) => {
 
     case CLEAR:
       return {
+        ...state,
         currentExpression: "",
         current_number: "0",
       };
 
+    // 73 + 5 * 6 - 2 / 4
     case EQUALS:
+      const result = calculate(state.currentExpression);
       return {
         ...state,
-        current_number: action.payload?.current_number,
+        currentExpression: state.currentExpression + "=" + result,
+        current_number: result.toString(),
       };
 
     default:

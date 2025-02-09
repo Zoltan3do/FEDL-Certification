@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeAction, clearAction, numberAction } from "../redux/actions";
+import {
+  changeAction,
+  clearAction,
+  equalsAction,
+  numberAction,
+} from "../redux/actions";
 
 function Gianni() {
   const current_number = useSelector(
@@ -20,6 +25,10 @@ function Gianni() {
     dispatch(numberAction(event.target.textContent));
   };
 
+  const handleEquals = () => {
+    dispatch(equalsAction());
+  };
+
   useEffect(() => {
     console.log("current_expression:", current_expression);
   }, [current_expression, current_number]);
@@ -28,11 +37,14 @@ function Gianni() {
     <>
       <div className="container my-5">
         <div className="row border border-dark border-5">
-          <div  className="text-end bg-black border">
+          <div className="text-end bg-black border">
             <div className="col-12 text-warning no-copy fs-2 fst-italic">
               {current_expression}
             </div>
-            <div className="col-12 text-light fs-1 fst-italic no-copy" id="display">
+            <div
+              className="col-12 text-light fs-1 fst-italic no-copy"
+              id="display"
+            >
               {current_number}
             </div>
           </div>
@@ -196,6 +208,7 @@ function Gianni() {
           <div
             className="col-6 text-center text-light fw-bold bg-primary border ni-over no-copy"
             id="equals"
+            onClick={handleEquals}
           >
             =
           </div>
