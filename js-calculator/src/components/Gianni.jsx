@@ -73,7 +73,7 @@ function Gianni() {
               handleChangeCurrent(event);
             }}
           >
-            X
+            *
           </div>
           <div
             className="col-3 text-center text-light fw-bold bg-dark border number-over no-copy"
