@@ -20,44 +20,12 @@ const calculatorReducer = (state = initialState, action) => {
   const lastDotIndex2 = state.current_number.indexOf(".");
 
   function calculate(expression) {
-    expression = expression.replace(/\s+/g, "");
-    let result = parseFloat(expression.charAt(0));
-
-    let i = 1;
-    while (i < expression.length) {
-      const operator = expression.charAt(i);
-      let j = i + 1;
-
-      while (
-        (j < expression.length && !isNaN(expression.charAt(j))) ||
-        expression.charAt(j) === "."
-      ) {
-        j++;
-      }
-
-      const number = parseFloat(expression.substring(i + 1, j));
-
-      switch (operator) {
-        case "+":
-          result += number;
-          break;
-        case "-":
-          result -= number;
-          break;
-        case "*":
-          result *= number;
-          break;
-        case "/":
-          result /= number;
-          break;
-        default:
-          break;
-      }
-
-      i = j;
+    try {
+      return eval(expression);
+    } catch (error) {
+      console.error("Errore nella valutazione dell'espressione:", error);
+      return "Error";
     }
-
-    return result;
   }
 
   switch (action.type) {
@@ -162,7 +130,7 @@ const calculatorReducer = (state = initialState, action) => {
         const result = calculate(state.currentExpression);
         return {
           ...state,
-          currentExpression: `${state.currentExpression}=${result}`,
+          currentExpression: result.toString(),
           current_number: result.toString(),
         };
       } catch (error) {

@@ -196,7 +196,7 @@ function Gianni() {
             .
           </div>
           <div
-            className="col-6 text-center text-light fw-bold bg-dark border number-over no-copy"
+            className="col-9 text-center text-light fw-bold bg-dark border number-over no-copy"
             id="zero"
             onClick={(event) => {
               handleChange(event);
@@ -206,7 +206,7 @@ function Gianni() {
             0
           </div>
           <div
-            className="col-6 text-center text-light fw-bold bg-primary border ni-over no-copy"
+            className="col-3 text-center text-light fw-bold bg-primary border ni-over no-copy"
             id="equals"
             onClick={handleEquals}
           >
