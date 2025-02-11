@@ -30,46 +30,23 @@ const calculatorReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case CHANGE_EXPRESSION:
-      if (action.payload === "." && state.currentExpression.length === 0) {
-        return {
-          ...state,
-          currentExpression: "0.",
-        };
-      } else if (
-        (state.currentExpression.length === 1 &&
-          action.payload === "0" &&
-          state.currentExpression.charAt(state.currentExpression.length - 1) ===
-            "0") ||
-        (isNaN(
-          state.currentExpression.charAt(state.currentExpression.length - 1)
-        ) &&
-          action.payload ===
-            state.currentExpression.charAt(
-              state.currentExpression.length - 1
-            )) ||
-        (isNaN(
-          state.currentExpression.charAt(state.currentExpression.length - 2)
-        ) &&
-          state.currentExpression.charAt(state.currentExpression.length - 1) ===
-            "0" &&
-          action.payload === "0") ||
-        (action.payload === "." && lastDotIndex > lastOperatorIndex) ||
-        (isNaN(
-          state.currentExpression.charAt(state.currentExpression.length - 1)
-        ) &&
-          isNaN(action.payload) &&
-          action.payload !== "-") ||
-        (isNaN(
-          state.currentExpression.charAt(state.currentExpression.length - 1)
-        ) &&
-          isNaN(action.payload) &&
-          action.payload === "-")
-      ) {
-        return {
-          ...state,
-          currentExpression:
-            state.currentExpression.slice(0, -1) + action.payload,
-        };
+      const lastChar = state.currentExpression.slice(-1);
+      const isOperator = ["+", "-", "*", "/"].includes(action.payload);
+      const isLastCharOperator = ["+", "-", "*", "/"].includes(lastChar);
+
+      if (isLastCharOperator && isOperator) {
+        if (action.payload === "-") {
+          return {
+            ...state,
+            currentExpression: state.currentExpression + action.payload,
+          };
+        } else {
+          return {
+            ...state,
+            currentExpression:
+              state.currentExpression.slice(0, -1) + action.payload,
+          };
+        }
       } else {
         return {
           ...state,
