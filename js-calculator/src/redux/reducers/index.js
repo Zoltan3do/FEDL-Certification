@@ -31,22 +31,25 @@ const calculatorReducer = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_EXPRESSION:
       const lastChar = state.currentExpression.slice(-1);
-      const isOperator = ["+", "-", "*", "/"].includes(action.payload);
+      const isOperator = ["+", "*", "/"].includes(action.payload);
       const isLastCharOperator = ["+", "-", "*", "/"].includes(lastChar);
 
       if (isLastCharOperator && isOperator) {
-        if (action.payload === "-") {
-          return {
-            ...state,
-            currentExpression: state.currentExpression + action.payload,
-          };
-        } else {
-          return {
-            ...state,
-            currentExpression:
-              state.currentExpression.slice(0, -1) + action.payload,
-          };
+        if (lastChar === "-" && state.currentExpression.length > 1) {
+          const prevChar = state.currentExpression.slice(-2, -1);
+          if (["+", "*", "/"].includes(prevChar)) {
+            return {
+              ...state,
+              currentExpression:
+                state.currentExpression.slice(0, -2) + action.payload,
+            };
+          }
         }
+        return {
+          ...state,
+          currentExpression:
+            state.currentExpression.slice(0, -1) + action.payload,
+        };
       } else {
         return {
           ...state,
