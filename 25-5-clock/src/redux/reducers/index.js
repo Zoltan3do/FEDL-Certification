@@ -2,7 +2,11 @@ import {
   ADD_SESSION,
   ADD_BREAK,
   SUBTRACT_TIME,
-  CHANGE_STATE_NOW,
+  CHANGE_STATE,
+  INCREMENT_SESSION,
+  INCREMENT_BREAK,
+  DECREMENT_BREAK,
+  DECREMENT_SESSION,
 } from "../actions";
 
 const initialState = {
@@ -26,7 +30,23 @@ const clockReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-    case CHANGE_STATE_NOW:
+    case CHANGE_STATE:
+      return {
+        ...state,
+      };
+    case INCREMENT_SESSION:
+      return {
+        ...state,
+      };
+    case DECREMENT_SESSION:
+      return {
+        ...state,
+      };
+    case INCREMENT_BREAK:
+      return {
+        ...state,
+      };
+    case DECREMENT_BREAK:
       return {
         ...state,
       };
