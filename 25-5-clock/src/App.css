@@ -2,4 +2,7 @@
   text-align: center;
   background-color: #1e555c;
   height: 100vh;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
 }

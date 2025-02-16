@@ -1,11 +1,13 @@
 function Lengthes({ type, time }) {
   return (
     <>
-      <h2>{type} Length</h2>
-      <div>
-        <i class="fa-solid fa-arrow-down"></i>
-        <p>{time}</p>
-        <i class="fa-solid fa-arrow-up"></i>
+      <div className="d-flex flex-column ">
+        <h2 className="text-light mb-3 fw-normal">{type} Length</h2>
+        <div className="d-flex justify-content-center text-light">
+          <i class="fa-solid fa-arrow-down"></i>
+          <p>{time}</p>
+          <i class="fa-solid fa-arrow-up"></i>
+        </div>
       </div>
     </>
   );
