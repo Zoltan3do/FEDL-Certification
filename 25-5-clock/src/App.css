@@ -2,7 +2,11 @@
   text-align: center;
   background-color: #1e555c;
   height: 100vh;
-  display: flex; 
+  display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.cursor-pointer:hover {
+  cursor: pointer;
 }

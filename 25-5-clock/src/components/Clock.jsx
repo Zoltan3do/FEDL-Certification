@@ -6,10 +6,10 @@ function Clock() {
           <p className="m-0 fs-3">State</p>
           <p>Current:Time</p>
         </div>
-        <div className="text-light d-flex justify-content-center gap-3 mt-3">
-          <i class="fa-solid fa-play"></i>
-          <i class="fa-solid fa-pause"></i>
-          <i class="fa-solid fa-arrows-rotate"></i>
+        <div className="text-light d-flex justify-content-center gap-3 mt-3 fs-3">
+          <i class="fa-solid fa-play cursor-pointer"></i>
+          <i class="fa-solid fa-pause cursor-pointer"></i>
+          <i class="fa-solid fa-arrows-rotate cursor-pointer"></i>
         </div>
       </div>
     </>
