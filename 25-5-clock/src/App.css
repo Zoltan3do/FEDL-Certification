@@ -10,3 +10,7 @@
 .cursor-pointer:hover {
   cursor: pointer;
 }
+
+.fs-big {
+  font-size: 2em;
+}

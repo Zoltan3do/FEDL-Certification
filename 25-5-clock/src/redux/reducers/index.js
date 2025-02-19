@@ -7,11 +7,12 @@ import {
   INCREMENT_BREAK,
   DECREMENT_BREAK,
   DECREMENT_SESSION,
+  RESET,
 } from "../actions";
 
 const initialState = {
   currentTimer: "25:00",
-  stateNow: "session",
+  stateNow: "Session",
   breakLength: 5,
   sessionLength: 25,
 };
@@ -47,6 +48,10 @@ const clockReducer = (state = initialState, action) => {
         ...state,
       };
     case DECREMENT_BREAK:
+      return {
+        ...state,
+      };
+    case RESET:
       return {
         ...state,
       };
