@@ -11,7 +11,6 @@ import {
 } from "../actions";
 
 const initialState = {
-  currentTimer: "25:00",
   stateNow: "Session",
   breakLength: 5,
   sessionLength: 25,
@@ -36,24 +35,55 @@ const clockReducer = (state = initialState, action) => {
         ...state,
       };
     case INCREMENT_SESSION:
-      return {
-        ...state,
-      };
+      if (state.sessionLength < 60) {
+        return {
+          ...state,
+          sessionLength: state.sessionLength + 1,
+        };
+      } else {
+        return {
+          ...state,
+        };
+      }
     case DECREMENT_SESSION:
-      return {
-        ...state,
-      };
+      if (state.sessionLength > 1) {
+        return {
+          ...state,
+          sessionLength: state.sessionLength - 1,
+        };
+      } else {
+        return {
+          ...state,
+        };
+      }
     case INCREMENT_BREAK:
-      return {
-        ...state,
-      };
+      if (state.breakLength < 60) {
+        return {
+          ...state,
+          breakLength: state.breakLength + 1,
+        };
+      } else {
+        return {
+          ...state,
+        };
+      }
     case DECREMENT_BREAK:
-      return {
-        ...state,
-      };
+      if (state.breakLength > 1) {
+        return {
+          ...state,
+          breakLength: state.breakLength - 1,
+        };
+      } else {
+        return {
+          ...state,
+        };
+      }
+
     case RESET:
       return {
         ...state,
+        breakLength: 5,
+        sessionLength: 25,
       };
     default:
       return state;
