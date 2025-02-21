@@ -14,6 +14,7 @@ const initialState = {
   stateNow: "Session",
   breakLength: 5,
   sessionLength: 25,
+  paused: true,
 };
 
 const clockReducer = (state = initialState, action) => {
@@ -85,6 +86,13 @@ const clockReducer = (state = initialState, action) => {
         breakLength: 5,
         sessionLength: 25,
       };
+
+    case PAUSE:
+      return {
+        ...state,
+        paused: true,
+      };
+
     default:
       return state;
   }

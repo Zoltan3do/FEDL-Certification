@@ -7,6 +7,7 @@ export const DECREMENT_SESSION = "DECREMENT_SESSION";
 export const INCREMENT_BREAK = "INCREMENT_BREAK";
 export const DECREMENT_BREAK = "DECREMENT_BREAK";
 export const RESET = "RESET";
+export const PAUSE = "PAUSE";
 
 export const addSessionAction = (data) => {
   return {
@@ -61,5 +62,11 @@ export const decrementBreakAction = () => {
 export const resetAction = () => {
   return {
     type: RESET,
+  };
+};
+
+export const pauseAction = () => {
+  return {
+    type: PAUSE,
   };
 };
