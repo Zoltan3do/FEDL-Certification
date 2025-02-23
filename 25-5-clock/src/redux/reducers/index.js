@@ -8,8 +8,7 @@ import {
   DECREMENT_BREAK,
   DECREMENT_SESSION,
   RESET,
-  PAUSE,
-  PLAY,
+  PLAY_PAUSE
 } from "../actions";
 
 const initialState = {
@@ -90,16 +89,10 @@ const clockReducer = (state = initialState, action) => {
         paused: true,
       };
 
-    case PAUSE:
+    case PLAY_PAUSE:
       return {
         ...state,
-        paused: true,
-      };
-
-    case PLAY:
-      return {
-        ...state,
-        paused: false,
+        paused: !state.paused,
       };
 
     default:

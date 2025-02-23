@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { playAction, resetAction } from "../redux/actions";
+import { playPauseAction, resetAction } from "../redux/actions";
 import gallo from "../assets/gallo.mp3";
 
 const formatTime = (timeInSeconds) => {
@@ -62,7 +62,7 @@ function Clock() {
   }
 
   const handlePlay = () => {
-    dispatch(playAction());
+    dispatch(playPauseAction());
   };
 
   useEffect(() => {
@@ -91,12 +91,11 @@ function Clock() {
           <audio id="gallo" src={gallo}></audio>
         </div>
         <div className="text-light d-flex justify-content-center gap-3 mt-3 fs-3">
-          <i
-            class="fa-solid fa-play cursor-pointer"
-            id="start_stop"
-            onClick={() => handlePlay()}
-          ></i>
-          <i class="fa-solid fa-pause cursor-pointer" id="stop_start"></i>
+          <div id="start_stop" onClick={() => handlePlay()}>
+            <i class="fa-solid fa-play cursor-pointer"></i>
+            <i class="fa-solid fa-pause cursor-pointer"></i>
+          </div>
+
           <i
             class="fa-solid fa-arrows-rotate cursor-pointer"
             id="reset"
