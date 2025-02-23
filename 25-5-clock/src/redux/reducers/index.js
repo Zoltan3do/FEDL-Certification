@@ -8,6 +8,8 @@ import {
   DECREMENT_BREAK,
   DECREMENT_SESSION,
   RESET,
+  PAUSE,
+  PLAY,
 } from "../actions";
 
 const initialState = {
@@ -36,7 +38,7 @@ const clockReducer = (state = initialState, action) => {
         ...state,
       };
     case INCREMENT_SESSION:
-      if (state.sessionLength < 60) {
+      if (state.sessionLength < 60 && state.paused) {
         return {
           ...state,
           sessionLength: state.sessionLength + 1,
@@ -47,7 +49,7 @@ const clockReducer = (state = initialState, action) => {
         };
       }
     case DECREMENT_SESSION:
-      if (state.sessionLength > 1) {
+      if (state.sessionLength > 1 && state.paused) {
         return {
           ...state,
           sessionLength: state.sessionLength - 1,
@@ -58,7 +60,7 @@ const clockReducer = (state = initialState, action) => {
         };
       }
     case INCREMENT_BREAK:
-      if (state.breakLength < 60) {
+      if (state.breakLength < 60 && state.paused) {
         return {
           ...state,
           breakLength: state.breakLength + 1,
@@ -69,7 +71,7 @@ const clockReducer = (state = initialState, action) => {
         };
       }
     case DECREMENT_BREAK:
-      if (state.breakLength > 1) {
+      if (state.breakLength > 1 && state.paused) {
         return {
           ...state,
           breakLength: state.breakLength - 1,
@@ -85,12 +87,19 @@ const clockReducer = (state = initialState, action) => {
         ...state,
         breakLength: 5,
         sessionLength: 25,
+        paused: true,
       };
 
     case PAUSE:
       return {
         ...state,
         paused: true,
+      };
+
+    case PLAY:
+      return {
+        ...state,
+        paused: false,
       };
 
     default:

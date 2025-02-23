@@ -11,6 +11,7 @@ function Lengthes({ id, type, time }) {
   const dispatch = useDispatch();
   const breakLength = useSelector((state) => state.clock.breakLength);
   const sessionLength = useSelector((state) => state.clock.sessionLength);
+  const isPaused = useSelector((state) => state.clock.paused);
 
   const handleDecrement = () => {
     if (type == "Session") {
