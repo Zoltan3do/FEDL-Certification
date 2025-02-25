@@ -83,17 +83,21 @@ function Clock() {
   return (
     <>
       <div>
-        <div className="rounded-5 border border-5 p-5 text-light border-dark fs-1">
+        <div className="rounded-5 border border-5 p-5 text-light border-dark fs-1 d-flex flex-column alignt-items-center justify-content-center">
           <p className="m-0 fs-3" id="timer-label">
             {stateNow}
           </p>
           <p id="time-left">{timeLeft}</p>
           <audio id="gallo" src={gallo}></audio>
         </div>
-        <div className="text-light d-flex justify-content-center gap-3 mt-3 fs-3">
-          <div id="start_stop" onClick={() => handlePlay()}>
-            <i class="fa-solid fa-play cursor-pointer"></i>
-            <i class="fa-solid fa-pause cursor-pointer"></i>
+        <div className="text-light d-flex justify-content-center gap-5 mt-3 fs-3">
+          <div
+            id="start_stop"
+            onClick={() => handlePlay()}
+            className="d-flex gap-1 cursor-pointer"
+          >
+            <i class="fa-solid fa-play "></i>
+            <i class="fa-solid fa-pause "></i>
           </div>
 
           <i
