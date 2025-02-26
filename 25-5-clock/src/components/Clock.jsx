@@ -49,10 +49,8 @@ function Clock() {
           dispatch(changeStateAction());
           let newState = stateNow == "Session" ? "Break" : "Session";
           if (newState == "Session") {
-            console.log("Siamo nella session");
             setTimeLeft(formatTime(sessionLength * 60));
           } else if (newState == "Break") {
-            console.log("Siamo nel break");
             setTimeLeft(formatTime(breakLength * 60));
           }
           document.getElementById("beep").volume = 0.03;
