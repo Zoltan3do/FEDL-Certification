@@ -8,7 +8,7 @@ import {
   DECREMENT_BREAK,
   DECREMENT_SESSION,
   RESET,
-  PLAY_PAUSE
+  PLAY_PAUSE,
 } from "../actions";
 
 const initialState = {
@@ -35,6 +35,7 @@ const clockReducer = (state = initialState, action) => {
     case CHANGE_STATE:
       return {
         ...state,
+        stateNow: state.stateNow == "Session" ? "Break" : "Session",
       };
     case INCREMENT_SESSION:
       if (state.sessionLength < 60 && state.paused) {
@@ -87,6 +88,7 @@ const clockReducer = (state = initialState, action) => {
         breakLength: 5,
         sessionLength: 25,
         paused: true,
+        stateNow: "Session",
       };
 
     case PLAY_PAUSE:

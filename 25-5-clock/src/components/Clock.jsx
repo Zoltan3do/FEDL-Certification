@@ -1,6 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { playPauseAction, resetAction } from "../redux/actions";
+import {
+  changeStateAction,
+  playPauseAction,
+  resetAction,
+} from "../redux/actions";
 import gallo from "../assets/gallo.mp3";
 
 const formatTime = (timeInSeconds) => {
@@ -29,6 +33,8 @@ function Clock() {
       intervalRef.current = null;
     }
     setTimeLeft(formatTime(sessionLength * 60));
+    document.getElementById("beep").pause();
+    document.getElementById("beep").currentTime = 0;
     dispatch(resetAction());
   };
 
@@ -39,11 +45,22 @@ function Clock() {
 
       intervalRef.current = setInterval(() => {
         totalSeconds -= 1;
-
         if (totalSeconds < 0) {
-          document.getElementById("gallo").play();
+          dispatch(changeStateAction());
+          let newState = stateNow == "Session" ? "Break" : "Session";
+          if (newState == "Session") {
+            console.log("Siamo nella session");
+            setTimeLeft(formatTime(sessionLength * 60));
+          } else if (newState == "Break") {
+            console.log("Siamo nel break");
+            setTimeLeft(formatTime(breakLength * 60));
+          }
+          document.getElementById("beep").volume = 0.03;
+          document.getElementById("beep").play();
+          [minutes, seconds] = timeLeft.split(":").map(Number);
+          totalSeconds =
+            newState == "Session" ? sessionLength * 60 : breakLength * 60;
           clearInterval(intervalRef.current);
-          return;
         }
 
         setTimeLeft(formatTime(totalSeconds));
@@ -66,7 +83,11 @@ function Clock() {
   };
 
   useEffect(() => {
-    setTimeLeft(formatTime(sessionLength * 60));
+    if (stateNow == "Session") {
+      setTimeLeft(formatTime(sessionLength * 60));
+    } else if (stateNow == "Break") {
+      setTimeLeft(formatTime(breakLength * 60));
+    }
   }, [sessionLength]);
 
   useEffect(() => {
@@ -78,7 +99,7 @@ function Clock() {
         intervalRef.current = null;
       }
     }
-  }, [isPaused]);
+  }, [isPaused, stateNow]);
 
   return (
     <>
@@ -88,7 +109,7 @@ function Clock() {
             {stateNow}
           </p>
           <p id="time-left">{timeLeft}</p>
-          <audio id="gallo" src={gallo}></audio>
+          <audio id="beep" src={gallo}></audio>
         </div>
         <div className="text-light d-flex justify-content-center gap-5 mt-3 fs-3">
           <div
@@ -96,12 +117,12 @@ function Clock() {
             onClick={() => handlePlay()}
             className="d-flex gap-1 cursor-pointer"
           >
-            <i class="fa-solid fa-play "></i>
-            <i class="fa-solid fa-pause "></i>
+            <i className="fa-solid fa-play "></i>
+            <i className="fa-solid fa-pause "></i>
           </div>
 
           <i
-            class="fa-solid fa-arrows-rotate cursor-pointer"
+            className="fa-solid fa-arrows-rotate cursor-pointer"
             id="reset"
             onClick={() => handleReset()}
           ></i>

@@ -34,9 +34,6 @@ function Lengthes({ id, type, time }) {
   };
 
   useEffect(() => {
-    console.log(
-      "Break: " + breakLength + "\n" + "Session: " + "\n" + sessionLength
-    );
   }, [breakLength, sessionLength]);
 
   return (
@@ -45,7 +42,7 @@ function Lengthes({ id, type, time }) {
         <h2 className="text-light mb-0 fw-normal">{type} Length</h2>
         <div className="d-flex justify-content-center text-light align-items-center gap-3">
           <i
-            class="fa-solid fa-arrow-down cursor-pointer fs-3"
+            className="fa-solid fa-arrow-down cursor-pointer fs-3"
             id={type.toLowerCase() + "-decrement"}
             onClick={() => handleDecrement()}
           ></i>
@@ -53,7 +50,7 @@ function Lengthes({ id, type, time }) {
             {time}
           </p>
           <i
-            class="fa-solid fa-arrow-up cursor-pointer fs-3"
+            className="fa-solid fa-arrow-up cursor-pointer fs-3"
             id={type.toLowerCase() + "-increment"}
             onClick={() => handleIncrement()}
           ></i>
